@@ -1,0 +1,5 @@
+nest generate controller users = генерация контроллера в папке users
+nest generate module users
+nest generate service users
+npm run start:dev = запуск сервера
+npm i @nestjs/config = пакет конфиг
