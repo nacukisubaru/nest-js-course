@@ -4,3 +4,4 @@ nest generate service users
 npm run start:dev = запуск сервера
 npm i @nestjs/config = пакет конфиг
 npm i cross-env = пакет для установки глобальных переменных в package.json
+npm i @nestjs/swagger swagger-ui-express
