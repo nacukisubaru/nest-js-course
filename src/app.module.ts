@@ -10,7 +10,7 @@ import { Role } from "./roles/roles.model";
 import { UserRoles } from "./roles/user-roles.model";
 
 @Module({
-    controllers: [RolesController],
+    controllers: [],
     providers: [],
     imports: [
         //создает системные переменные из файла
