@@ -19,7 +19,7 @@ export class UsersService {
     }
 
     async getAllUsers() {
-        const users = await this.userRepository.findAll();
-        return users;
+        //c помощью {include: {all: true}} вытаскиваем пользователя вместе с ролью
+        return await this.userRepository.findAll({include: {all: true}});
     }
 }
