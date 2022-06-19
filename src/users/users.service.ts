@@ -15,11 +15,16 @@ export class UsersService {
         const role = await this.rolesService.getRoleByValue("USER");
         //установка роли для пользователя
         await user.$set('roles', [role.id]);
+        user.roles = [role];
         return user;
     }
 
     async getAllUsers() {
         //c помощью {include: {all: true}} вытаскиваем пользователя вместе с ролью
         return await this.userRepository.findAll({include: {all: true}});
+    }
+
+    async getUserByEmail(email: string) {
+       return await this.userRepository.findOne({where: {email}, include: {all: true}});
     }
 }
