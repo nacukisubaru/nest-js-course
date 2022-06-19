@@ -4,10 +4,10 @@ import { UsersModule } from './users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule } from "@nestjs/config";
 import { User } from "./users/users.model";
-import { RolesController } from './roles/roles.controller';
 import { RolesModule } from './roles/roles.module';
 import { Role } from "./roles/roles.model";
 import { UserRoles } from "./roles/user-roles.model";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     controllers: [],
@@ -28,7 +28,8 @@ import { UserRoles } from "./roles/user-roles.model";
             autoLoadModels: true
         }),
         UsersModule,
-        RolesModule
+        RolesModule,
+        AuthModule
     ]
 })
-export class AppModule {}
+export class AppModule { }
