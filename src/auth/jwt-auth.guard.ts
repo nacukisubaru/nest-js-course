@@ -4,9 +4,12 @@ import { Observable } from "rxjs";
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
+    private unautorizedMessage: string = 'Пользователь не авторизован';
+
     constructor(private jwtService: JwtService) {}
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        //служит для получения контекста текущего выполненного запроса
         const req = context.switchToHttp().getRequest();
         try {
             const authHeader = req.headers.authorization;
@@ -14,15 +17,18 @@ export class JwtAuthGuard implements CanActivate {
             const token = authHeader.split(' ')[1];
 
             if(bearer !== 'Bearer' || !token) {
-                throw new UnauthorizedException({message: 'Пользователь не авторизован'});
+                this.UnauthorizedError(this.unautorizedMessage);
             }
 
             const user = this.jwtService.verify(token);            
             req.user = user;
             return true;
         } catch (e) {
-            throw new UnauthorizedException({message: 'Пользователь не авторизован'});
+            this.UnauthorizedError(this.unautorizedMessage);
         }
     }
 
+    private UnauthorizedError(message): void {
+        throw new UnauthorizedException({message});
+    }
 }
