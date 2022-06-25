@@ -13,6 +13,10 @@ export class UsersService {
         private rolesService: RolesService) {}
  
     async createUser(dto: CreateUserDto) {
+        const userExist = await this.getUserByEmail(dto.email)
+        if(userExist) {
+            throw new HttpException(`Пользователь c email ${userExist.email} уже существует !`,HttpStatus.BAD_REQUEST);
+        }
         const user = await this.userRepository.create(dto);
         const role = await this.rolesService.getRoleByValue("ADMIN");
         //установка роли для пользователя

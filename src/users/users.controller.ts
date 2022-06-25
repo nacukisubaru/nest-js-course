@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
@@ -8,7 +8,7 @@ import { BanUserDto } from './dto/ban-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 import { UsersService } from './users.service';
-
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 @ApiTags('Пользователи')
 @Controller('users')
 export class UsersController {
@@ -20,8 +20,10 @@ export class UsersController {
     @Roles("ADMIN")
     //Указываем что должен использоваться определенный Guard
     @UseGuards(RolesGuard)
+    //Декоратор для использования класса валидации пока не работает
+    @UsePipes(ValidationPipe)
     @Post()
-    create(@Body() userDto: CreateUserDto) {
+    create(@Body(new ValidationPipe()) userDto: CreateUserDto) {
         return this.usersService.createUser(userDto);
     }
 
