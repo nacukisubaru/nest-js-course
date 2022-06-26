@@ -8,7 +8,7 @@ interface PostCreationAttrs {
     image: string;
 }
 
-@Table({tableName: 'users'})
+@Table({tableName: 'posts'})
 export class Post extends Model<Post, PostCreationAttrs> {
     
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
