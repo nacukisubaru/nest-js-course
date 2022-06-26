@@ -3,7 +3,6 @@ import { plainToClass } from "class-transformer";
 import { validate } from "class-validator";
 import { ValidationException } from "src/exceptions/validation.exception";
 
-//Класс для валидации пока не работает, нужно до разобраться 
 @Injectable()
 export class ValidationPipe implements PipeTransform<any>{
     async transform(value: any, metadata: ArgumentMetadata): Promise<any> {
@@ -12,12 +11,12 @@ export class ValidationPipe implements PipeTransform<any>{
 
         if(errors.length > 0) {
             console.log(errors);
-            // let message = errors.map(err => {
-            //     return `${err.property}`
-            // })
-            throw new ValidationException('error');
+            let message = errors.map(err => {
+                return `${err.property} - ${Object.values(err.constraints).join(', ')}`
+            })
+
+            throw new ValidationException(message);
         }
         return value;
     }
-
 }
