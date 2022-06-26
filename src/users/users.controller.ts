@@ -20,12 +20,21 @@ export class UsersController {
     @Roles("ADMIN")
     //Указываем что должен использоваться определенный Guard
     @UseGuards(RolesGuard)
+
     //Декоратор для использования класса валидации пока не работает
-    @UsePipes(ValidationPipe)
+    //@UsePipes(ValidationPipe)
+    // @Post()
+    // create(@Body(new ValidationPipe()) userDto: CreateUserDto) {
+    //     return this.usersService.createUser(userDto);
+    // }
+
+    //сейчас работает глобальная валидация(pipes) сверху пример валидации
+    //для конкретного ендпоинта
     @Post()
-    create(@Body(new ValidationPipe()) userDto: CreateUserDto) {
+    create(@Body() userDto: CreateUserDto) {
         return this.usersService.createUser(userDto);
     }
+
 
     @ApiOperation({summary: 'Получение всех пользователей'})
     @ApiResponse({status:200, type: [User]})
