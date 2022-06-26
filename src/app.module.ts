@@ -10,6 +10,9 @@ import { UserRoles } from "./roles/user-roles.model";
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { Post } from "./posts/posts.model";
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
     controllers: [],
@@ -29,10 +32,15 @@ import { Post } from "./posts/posts.model";
             models: [User, Role, UserRoles, Post],
             autoLoadModels: true
         }),
+        //конфигурация для раздачи статики сервером пример: http://localhost:5000/2e348149-61af-404a-9d2c-f0042618a855.jpg
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname, 'static'),
+        }),
         UsersModule,
         RolesModule,
         AuthModule,
-        PostsModule
+        PostsModule,
+        FilesModule
     ]
 })
 export class AppModule { }
