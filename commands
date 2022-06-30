@@ -1,9 +1,17 @@
+Генерация
 nest generate controller users = генерация контроллера в папке users
 nest generate module users
 nest generate service users
+nest g resource = генерирует почти всю рутину
+Запуск
 npm run start:dev = запуск сервера
-npm i @nestjs/config = пакет конфиг
+Пакеты
+npm i @nestjs/config = пакет конфиг чтобы работали глобальные переменные из файла выбраного при запуске NODE_ENV
 npm i cross-env = пакет для установки глобальных переменных в package.json
 npm i @nestjs/swagger swagger-ui-express
 npm i @nestjs/jwt bcryptjs --save = jwt токен
 npm i class-validator class-transformer = валидация
+Базы
+npm install --save @nestjs/sequelize sequelize sequelize-typescript = установка orm для posgress
+npm install --save pg pg-hstore = установка postegress
+npm install --save-dev @types/sequelize
